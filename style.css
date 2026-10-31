@@ -1,42 +1,45 @@
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background-color: #f4f4f6; 
-  background-image: radial-gradient(circle at 50% 0%, #ffffff 0%, #e9e9ef 100%);
+.board {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 
 
-.board {
-  position: relative; 
-  width: 100vw;
-  height: 100vh;
+.engraving-layer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
 }
+
+.slot {
+  position: absolute;
+  font-size: 120px;
+  font-weight: 900;
+  font-family: 'Nunito', sans-serif;
+  color: transparent; 
+  text-shadow: 
+    -1px -1px 1px rgba(255,255,255,0.8),
+    2px 2px 3px rgba(0,0,0,0.2);
+  -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+}
+
 
 .magnet {
   position: absolute;
-  padding: 20px 30px;
-  background-color: #ff595e;
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  border-radius: 10px;
+  font-size: 120px;
+  font-weight: 900;
+  font-family: 'Nunito', sans-serif;
+  color: #020202;
   cursor: grab;
-  user-select: none; 
-  box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
-  
-
-  top: 100px;
-  left: 100px;
+  user-select: none;
+  text-shadow: 2px 2px 0px #1f1e1e, 4px 4px 8px rgba(0,0,0,0.3);
+  will-change: transform;
 }
-
-
-.magnet:nth-child(2) { top: 150px; left: 200px; }
-.magnet:nth-child(3) { top: 200px; left: 300px; }
 
 .magnet.dragging {
   cursor: grabbing;
-  box-shadow: 5px 10px 15px rgba(0,0,0,0.3);
   z-index: 100;
+  transition: none;
 }
