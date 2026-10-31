@@ -1,5 +1,4 @@
-
-const SNAP_DISTANCE = 150; 
+const SNAP_DISTANCE = 50; 
 const MAX_ROTATION_SPEED = 1.5; 
 
 
@@ -65,8 +64,8 @@ magnets.forEach(magnet => {
     magnet.classList.remove('dragging');
     magnet.releasePointerCapture(e.pointerId);
     
-    const letter = magnet.dataset.letter;
-    const targetSlot = document.querySelector(`.slot[data-letter="${letter}"]`);
+    const id = magnet.dataset.id;
+    const targetSlot = document.querySelector(`.slot[data-id="${id}"]`);
     
     if (targetSlot && !targetSlot.classList.contains('filled')) {
       const slotRect = targetSlot.getBoundingClientRect();
@@ -88,23 +87,27 @@ magnets.forEach(magnet => {
   });
 });
 
-
 function snapToSlot(magnet, slot) {
   magnet.classList.add('snapped');
   slot.classList.add('filled');
   magnet.style.pointerEvents = 'none'; 
   
-  const board = document.querySelector('.board');
-  const boardRect = board.getBoundingClientRect();
-  const slotRect = slot.getBoundingClientRect();
+  const slotX = slot.offsetLeft;
+  const slotY = slot.offsetTop;
+  const magnetX = magnet.offsetLeft;
+  const magnetY = magnet.offsetTop;
 
-  const targetX = slotRect.left - boardRect.left;
-  const targetY = slotRect.top - boardRect.top;
+
+  const diffX = slotX - magnetX;
+  const diffY = slotY - magnetY;
+
+
+  magnet.style.transform = 'none';
+
+  magnet.style.transform = `translate(${diffX}px, ${diffY}px) rotate(0deg)`;
   
 
-  magnet.style.transform = `translate(${targetX}px, ${targetY}px) rotate(0deg)`;
-  magnet.style.transition = 'transform 0.2s ease-out';
-  
+  magnet.style.transition = 'transform 0.6s cubic-bezier(0.25, 1.5, 0.5, 1)';
   
   placedCount++;
   
